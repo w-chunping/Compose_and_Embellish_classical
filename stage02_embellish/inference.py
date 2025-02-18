@@ -299,6 +299,7 @@ def generate_conditional(model, event2idx, idx2event, skyline_events, tempo,
       seg_inp.append(0)
       generated_bars += 1
       print ('[info] generated {} bars, #events = {}'.format(generated_bars, len(generated)))
+      # print([idx2event[g] for g in generated])
 
       if generated_bars < target_bars:
         generated.extend( skyline_events[ generated_bars ] )
@@ -392,14 +393,14 @@ if __name__ == '__main__':
   else:
     raise NotImplementedError("Unsuppported model:", model_type)
   print(f"[info] temp = {temp} | top_p = {top_p}")
-
+  print(f"loading check point from: {inference_param_path}")
   pretrained_dict = torch.load(inference_param_path) #, map_location='cpu')
   pretrained_dict = {
     k:v for k, v in pretrained_dict.items() if 'feature_map.omega' not in k
   }
   model_state_dict = model.state_dict()
   model_state_dict.update(pretrained_dict)
-  model.load_state_dict(model_state_dict)
+  model.load_state_dict(model_state_dict, strict=False)
 
   model.eval()
   print ('[info] model loaded')
@@ -442,16 +443,26 @@ if __name__ == '__main__':
       generated = word2event(generated, dset.idx2event)
       generated = extract_midi_events_from_generation(generated)
 
-      event_to_midi(
-        [ dset.idx2event[tempo] ] + \
-        list(chain(*skyline_events[:max_bars])),
-        mode='skyline',
-        output_midi_path=os.path.join(
-          out_dir, '{}_skyline.mid'.format(skyline_files[p].split('.')[0])
-        )
+      np.save( 
+        os.path.join(out_dir, '{}_skyline.npy'.format(skyline_files[p].split('.')[0])),
+        [ dset.idx2event[tempo] ] +  list(chain(*skyline_events[:max_bars]))
       )
-      event_to_midi(
-        list(chain(*generated[:max_bars])),
-        mode='full',
-        output_midi_path=os.path.join(out_dir, out_name + '.mid')
+      np.save(
+        os.path.join(out_dir, out_name + '.npy'),
+        list(chain(*generated[:max_bars])) 
       )
+
+
+      # event_to_midi(
+      #   [ dset.idx2event[tempo] ] + \
+      #   list(chain(*skyline_events[:max_bars])),
+      #   mode='skyline',
+      #   output_midi_path=os.path.join(
+      #     out_dir, '{}_skyline.mid'.format(skyline_files[p].split('.')[0])
+      #   )
+      # )
+      # event_to_midi(
+      #   list(chain(*generated[:max_bars])),
+      #   mode='full',
+      #   output_midi_path=os.path.join(out_dir, out_name + '.mid')
+      # )

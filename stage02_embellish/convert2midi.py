@@ -1,4 +1,5 @@
 import miditoolkit
+import numpy as np
 
 ##############################
 # constants
@@ -68,6 +69,7 @@ class ChordEvent(object):
 ##############################
 # conversion functions
 ##############################
+
 def event_to_midi(events, mode, output_midi_path=None, is_full_event=False, 
                   return_tempos=False, enforce_tempo=False, enforce_tempo_evs=None):
   events = [ConversionEvent(ev, is_full_event=is_full_event) for ev in events]

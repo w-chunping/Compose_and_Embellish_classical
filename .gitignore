@@ -136,3 +136,5 @@ generation/
 
 # model checkpoints
 ckpt/
+
+# dataset

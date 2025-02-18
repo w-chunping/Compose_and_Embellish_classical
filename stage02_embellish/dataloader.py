@@ -1,6 +1,6 @@
    
 import os, random
-import pickle5 as pickle
+import pickle
 from glob import glob
 
 import torch
@@ -61,10 +61,10 @@ def transpose_events(raw_events, n_keys):
       transposed_raw_events.append(
         {'name': ev['name'], 'value': ev['value'] + n_keys}
       )
-    elif ev['name'] == 'Chord':
-      transposed_raw_events.append(
-        transpose_chord(ev, n_keys)
-      )
+    # elif ev['name'] == 'Chord':
+    #   transposed_raw_events.append(
+    #     transpose_chord(ev, n_keys)
+    #   )
     else:
       transposed_raw_events.append(ev)
 
