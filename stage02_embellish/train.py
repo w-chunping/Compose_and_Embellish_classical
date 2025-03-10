@@ -198,6 +198,7 @@ def validate(model, dloader, rounds=1, model_type="performer"):
   return loss_rec
 
 import wandb
+wandb.login()
 run = wandb.init(
     # Set the project where this run will be logged
     project="c-and-e-classical",

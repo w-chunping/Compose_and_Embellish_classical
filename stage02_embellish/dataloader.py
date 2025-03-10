@@ -91,7 +91,7 @@ class REMISkylineToMidiTransformerDataset(Dataset):
                pieces=[], do_augment=True, augment_range=range(-6, 7), 
                min_pitch=21, max_pitch=108, pad_to_same=True,
                appoint_st_bar=None, dec_end_pad_value=None,
-               use_chord_mhot=False
+               use_chord_mhot=False, composer_split=None, composer_split_path=None
               ):
     self.vocab_file = vocab_file
     self.read_vocab()
@@ -101,6 +101,8 @@ class REMISkylineToMidiTransformerDataset(Dataset):
     self.data_dir = data_dir
     self.pieces = pieces
     self.use_chord_mhot = use_chord_mhot
+    self.composer_split = composer_split
+    self.composer_split_path = composer_split_path
     self.build_dataset()
 
     self.do_augment = do_augment
@@ -125,10 +127,19 @@ class REMISkylineToMidiTransformerDataset(Dataset):
     self.vocab_size = self.pad_token + 1
   
   def build_dataset(self):
-    if not self.pieces:
-      self.pieces = sorted( glob(os.path.join(self.data_dir, '*.pkl')) )
-    else:
+    if self.composer_split is not None:
+      composer_split_dict = pickle_load(self.composer_split_path)
+      composer_split_list = [] #avaliable ids
+      for c in self.composer_split:
+        composer_split_list += composer_split_dict[c]
+      self.pieces = [p for p in self.pieces if any(id in p for id in composer_split_list)]
+      print(self.composer_split,len(self.pieces))
       self.pieces = sorted( [os.path.join(self.data_dir, p) for p in self.pieces] )
+    else:
+      if not self.pieces:
+        self.pieces = sorted( glob(os.path.join(self.data_dir, '*.pkl')) )
+      else:
+        self.pieces = sorted( [os.path.join(self.data_dir, p) for p in self.pieces] )
 
     self.piece_skyline_pos = []
     self.piece_midi_pos = []

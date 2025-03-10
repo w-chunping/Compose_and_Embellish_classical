@@ -1,5 +1,5 @@
 data_loader:
-  data_path:        /content/dataset/gp-piano-parsed
+  data_path:        /home/yihsin/MidiStyleTransfer/dataset/gp-piano-parsed
   vocab_path:       stage02_embellish/vocab/skyline_miditok_vocab.pkl
   batch_size:       4
   train_split:      stage02_embellish/pkl/train.pkl
@@ -24,11 +24,11 @@ training:
   num_epochs:       1000
   ckpt_dir:         ckpt/stage02_embellish_gp_seq2048_gpt2_timesig_top10
   ckpt_interval:    10       # epochs
-  log_interval:     50       # steps
-  trained_params:   null
-  trained_optim:    null
+  log_interval:     200       # steps
+  trained_params:    /home/yihsin/MidiStyleTransfer/Compose_and_Embellish_classical/ckpt/stage02_embellish_gp_seq2048_gpt2_timesig_top10/params/ep400_loss0.726_params.pt
+  trained_optim:   /home/yihsin/MidiStyleTransfer/Compose_and_Embellish_classical/ckpt/stage02_embellish_gp_seq2048_gpt2_timesig_top10/optim/ep400_loss0.726_optim.pt
   accum_steps:      2
-  inference_params: /content/Compose_and_Embellish_classical/ckpt/stage02_embellish_gp_seq2048_gpt2_timesig/params/ep980_loss0.340_params.pt
+  inference_params: /home/yihsin/MidiStyleTransfer/Compose_and_Embellish_classical/ckpt/stage02_embellish_gp_seq2048_gpt2_timesig_top10/params/ep540_loss0.490_params.pt
 
   lr:               1.0e-4
   lr_scheduler:

@@ -4,7 +4,7 @@ numpy
 scipy
 matplotlib
 miditoolkit
-torch==1.6.0
+torch #==1.6.0
 
 # for gpt-2 embellish model
 transformers
