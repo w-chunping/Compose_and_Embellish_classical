@@ -133,8 +133,10 @@ class REMISkylineToMidiTransformerDataset(Dataset):
       for c in self.composer_split:
         composer_split_list += composer_split_dict[c]
       self.pieces = [p for p in self.pieces if any(id in p for id in composer_split_list)]
-      print(self.composer_split,len(self.pieces))
+      print(f"composers:{self.composer_split} total pieces:{len(self.pieces)}")
       self.pieces = sorted( [os.path.join(self.data_dir, p) for p in self.pieces] )
+      # print(self.pieces)
+
     else:
       if not self.pieces:
         self.pieces = sorted( glob(os.path.join(self.data_dir, '*.pkl')) )

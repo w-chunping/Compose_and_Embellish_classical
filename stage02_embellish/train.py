@@ -221,6 +221,7 @@ if __name__ == "__main__":
     use_chord_emb = True
   print ('[use chord emb]', use_chord_emb)
 
+  split_pth = "/home/yihsin/MidiStyleTransfer/Compose_and_Embellish_classical/stage02_embellish/pkl/composer_split.pkl"
   dset = REMISkylineToMidiTransformerDataset(
     train_conf['data_loader']['data_path'],
     train_conf['data_loader']['vocab_path'], 
@@ -228,7 +229,9 @@ if __name__ == "__main__":
     model_dec_seqlen=train_conf['model']['max_len'], 
     pieces=pickle_load(train_split),
     pad_to_same=True,
-    use_chord_mhot=use_chord_emb
+    use_chord_mhot=use_chord_emb,
+    composer_split=["Bach_JohannSebastian"], 
+    composer_split_path=split_pth
   )
   val_dset = REMISkylineToMidiTransformerDataset(
     train_conf['data_loader']['data_path'],
@@ -237,7 +240,9 @@ if __name__ == "__main__":
     model_dec_seqlen=train_conf['model']['max_len'], 
     pieces=pickle_load(val_split),
     pad_to_same=True,
-    use_chord_mhot=use_chord_emb
+    use_chord_mhot=use_chord_emb,
+    composer_split=["Bach_JohannSebastian"], 
+    composer_split_path=split_pth
   )
   print ('[info] # training pieces:', len(dset.pieces), dset.do_augment)
   dloader = DataLoader(

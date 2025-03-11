@@ -22,8 +22,8 @@ model:
 training:
   gpuid:            0
   num_epochs:       1000
-  ckpt_dir:         ckpt/stage02_embellish_pop1k7_seq3072
-  ckpt_interval:    10       # epochs
+  ckpt_dir:         ckpt/stage02_embellish_bach
+  ckpt_interval:    50       # epochs
   log_interval:     50       # steps
   trained_params:   null
   trained_optim:    null

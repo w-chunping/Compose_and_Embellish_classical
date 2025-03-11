@@ -22,13 +22,13 @@ model:
 training:
   gpuid:            0
   num_epochs:       1000
-  ckpt_dir:         ckpt/stage02_embellish_gp_seq2048_gpt2_timesig_top10
-  ckpt_interval:    10       # epochs
+  ckpt_dir:         ckpt/stage02_embellish_gp_bach
+  ckpt_interval:    50     # epochs
   log_interval:     200       # steps
-  trained_params:    /home/yihsin/MidiStyleTransfer/Compose_and_Embellish_classical/ckpt/stage02_embellish_gp_seq2048_gpt2_timesig_top10/params/ep400_loss0.726_params.pt
-  trained_optim:   /home/yihsin/MidiStyleTransfer/Compose_and_Embellish_classical/ckpt/stage02_embellish_gp_seq2048_gpt2_timesig_top10/optim/ep400_loss0.726_optim.pt
+  trained_params:   null
+  trained_optim:    null
   accum_steps:      2
-  inference_params: /home/yihsin/MidiStyleTransfer/Compose_and_Embellish_classical/ckpt/stage02_embellish_gp_seq2048_gpt2_timesig_top10/params/ep540_loss0.490_params.pt
+  inference_params: /home/yihsin/MidiStyleTransfer/Compose_and_Embellish_classical/ckpt/history/10composers.pt
 
   lr:               1.0e-4
   lr_scheduler:
