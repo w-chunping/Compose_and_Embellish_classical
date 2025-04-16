@@ -230,7 +230,7 @@ if __name__ == "__main__":
     pieces=pickle_load(train_split),
     pad_to_same=True,
     use_chord_mhot=use_chord_emb,
-    composer_split=["Bach_JohannSebastian"], 
+    composer_split=["Mozart_WolfgangAmadeus"], 
     composer_split_path=split_pth
   )
   val_dset = REMISkylineToMidiTransformerDataset(
@@ -241,7 +241,7 @@ if __name__ == "__main__":
     pieces=pickle_load(val_split),
     pad_to_same=True,
     use_chord_mhot=use_chord_emb,
-    composer_split=["Bach_JohannSebastian"], 
+    composer_split=["Mozart_WolfgangAmadeus"], 
     composer_split_path=split_pth
   )
   print ('[info] # training pieces:', len(dset.pieces), dset.do_augment)

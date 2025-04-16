@@ -217,14 +217,25 @@ class REMISkylineToMidiTransformerDataset(Dataset):
     augmented_bar_events = transpose_events(bar_events, n_keys)
     return augmented_bar_events
 
-  def make_target_and_mask(self, inp_tokens, skyline_pos, midi_pos, st_bar):
+  def make_target_and_mask(self, inp_tokens, skyline_pos, midi_pos, st_bar, random_mask = False):
     tgt = np.full_like(inp_tokens, fill_value=self.pad_token)
     track_mask = np.zeros_like(inp_tokens)
 
+    # randomly choose 10 percent 0f tokens to be masked
+    if random_mask:
+      flag_list = [False] * len(skyline_pos)
+      num_to_select = int(0.15 * (len(skyline_pos) - st_bar))
+      selected_indices = random.sample(range(st_bar, len(skyline_pos)), num_to_select)
+      for index in selected_indices:
+          flag_list[index] = True
+      # print(f"random masks:{num_to_select} flag_list:{flag_list}")
+
     for bidx in range(st_bar, len(skyline_pos)):
       offset =  - skyline_pos[st_bar][0] + 1 
-
       track_mask[ midi_pos[bidx][0] + offset : midi_pos[bidx][1] + offset ] = 1
+      # if the bar is masked at random
+      if random_mask and flag_list[bidx]:
+        track_mask[ skyline_pos[bidx][0] + offset : skyline_pos[bidx][1] + offset ] = 1
       if bidx != len(skyline_pos) - 1:
         tgt[ midi_pos[bidx][0] + offset : midi_pos[bidx][1] + offset ] = inp_tokens[ midi_pos[bidx][0] + 1 + offset: midi_pos[bidx][1] + 1 + offset ]
       else:

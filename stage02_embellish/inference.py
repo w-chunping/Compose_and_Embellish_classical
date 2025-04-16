@@ -241,6 +241,7 @@ def generate_conditional(model, event2idx, idx2event, skyline_events, tempo,
   time_st = time.time()
   cur_pos = 0
   failed_cnt = 0
+  pad_cnt = 0
   cur_chord = np.zeros((1, 12))
 
   while generated_bars < target_bars:
@@ -318,7 +319,12 @@ def generate_conditional(model, event2idx, idx2event, skyline_events, tempo,
       continue
 
     if word_event == 'PAD_None' or (word_event == 'EOS_None' and generated_bars < target_bars - 1):
-      continue
+      if pad_cnt<10: 
+        pad_cnt += 1
+        continue
+      else:
+        print ('[info] gotten too much padding')
+        break
     elif word_event == 'EOS_None' and generated_bars == target_bars - 1:
       print ('[info] gotten eos')
       generated.append(word)
