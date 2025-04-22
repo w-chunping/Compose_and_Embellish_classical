@@ -26,8 +26,9 @@ redraw_prob = train_conf_.get('feat_redraw_prob', 0.0)
 max_epochs = train_conf_['num_epochs']
 batch_size = train_conf['data_loader']['batch_size']
 train_split = train_conf['data_loader']['train_split']
+print('train_split:', train_split)
 val_split = train_conf['data_loader']['val_split']
-
+print('valid_split:', val_split)
 ckpt_dir = train_conf_['ckpt_dir']
 pretrained_param_path = train_conf_['trained_params']
 pretrained_optimizer_path = train_conf_['trained_optim']
@@ -233,6 +234,7 @@ if __name__ == "__main__":
     composer_split=["Mozart_WolfgangAmadeus"], 
     composer_split_path=split_pth
   )
+  print("initialized dset, got dset.pieces:", dset.pieces)
   val_dset = REMISkylineToMidiTransformerDataset(
     train_conf['data_loader']['data_path'],
     train_conf['data_loader']['vocab_path'], 

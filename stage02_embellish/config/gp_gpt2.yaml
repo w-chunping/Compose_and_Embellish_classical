@@ -2,8 +2,8 @@ data_loader:
   data_path:        /home/yihsin/MidiStyleTransfer/dataset/gp-piano-parsed
   vocab_path:       stage02_embellish/vocab/skyline_miditok_vocab.pkl
   batch_size:       4
-  train_split:      stage02_embellish/pkl/train.pkl
-  val_split:        stage02_embellish/pkl/valid.pkl
+  train_split:      stage02_embellish/pkl/pptrain.pkl
+  val_split:        stage02_embellish/pkl/ppvalid.pkl
   do_augment:       True
 
 model:
@@ -22,13 +22,13 @@ model:
 training:
   gpuid:            0
   num_epochs:       1000
-  ckpt_dir:         ckpt/stage02_embellish_gp_bach
+  ckpt_dir:         ckpt/stage02_embellish_gp_m015
   ckpt_interval:    50     # epochs
   log_interval:     200       # steps
   trained_params:   null
   trained_optim:    null
   accum_steps:      2
-  inference_params: /home/yihsin/MidiStyleTransfer/Compose_and_Embellish_classical/ckpt/history/10composers.pt
+  inference_params: /home/yihsin/MidiStyleTransfer/Compose_and_Embellish_classical/ckpt/stage02_embellish_gp_m015/params/ep900_loss0.008_params.pt
 
   lr:               1.0e-4
   lr_scheduler:

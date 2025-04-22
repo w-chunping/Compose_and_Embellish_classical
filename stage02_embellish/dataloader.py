@@ -129,13 +129,27 @@ class REMISkylineToMidiTransformerDataset(Dataset):
   def build_dataset(self):
     if self.composer_split is not None:
       composer_split_dict = pickle_load(self.composer_split_path)
+      
+    #   #================== fix mismatch files =================#
+
+    # all_files = [f for f in os.listdir(self.data_dir) if f.endswith('.pkl')]
+    # # Collect all files that start with any prefix in self.pieces
+    # matched_files = []
+    # for c in self.composer_split:
+    #   for prefix in self.composer_split_dict[c]:
+    #       matched = [f for f in all_files if f.startswith(prefix.split(' ')[1])]
+    #       matched_files.extend(matched)
+
+    # # Update self.pieces to be the full file names
+    # self.composer_split_dict = matched_files
+
       composer_split_list = [] #avaliable ids
       for c in self.composer_split:
         composer_split_list += composer_split_dict[c]
       self.pieces = [p for p in self.pieces if any(id in p for id in composer_split_list)]
       print(f"composers:{self.composer_split} total pieces:{len(self.pieces)}")
       self.pieces = sorted( [os.path.join(self.data_dir, p) for p in self.pieces] )
-      # print(self.pieces)
+      print(self.pieces)
 
     else:
       if not self.pieces:
@@ -146,6 +160,19 @@ class REMISkylineToMidiTransformerDataset(Dataset):
     self.piece_skyline_pos = []
     self.piece_midi_pos = []
     self.piece_admissible_stbars = []
+
+
+#================== fix mismatch files =================#
+
+    # all_files = [f for f in os.listdir(self.data_dir) if f.endswith('.pkl')]
+    # # Collect all files that start with any prefix in self.pieces
+    # matched_files = []
+    # for prefix in self.pieces:
+    #     matched = [f for f in all_files if f.startswith(prefix.split('.')[0])]
+    #     matched_files.extend(matched)
+
+    # # Update self.pieces to be the full file names
+    # self.pieces = matched_files
 
     for i, p in enumerate(self.pieces):
       piece_data = pickle_load(p)
