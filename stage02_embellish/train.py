@@ -33,7 +33,7 @@ ckpt_dir = train_conf_['ckpt_dir']
 pretrained_param_path = train_conf_['trained_params']
 pretrained_optimizer_path = train_conf_['trained_optim']
 ckpt_interval = train_conf_['ckpt_interval']
-val_interval = 1
+val_interval = 2
 log_interval = train_conf_['log_interval']
 accum_steps = train_conf_.get("accum_steps", 1)
 
@@ -126,12 +126,12 @@ def train_model(
         'recons_loss': recons_loss_rec / accum_samples,
         'time': time.time() - st
       }
-      wandb.log({
-        'ep': epoch,
-        'steps': train_steps,
-        'recons_loss': recons_loss_rec / accum_samples,
-        'time': time.time() - st
-      })
+      # wandb.log({
+      #   'ep': epoch,
+      #   'steps': train_steps,
+      #   'recons_loss': recons_loss_rec / accum_samples,
+      #   'time': time.time() - st
+      # })
       log_epoch(
         os.path.join(ckpt_dir, 'log.txt'), log_data, is_init=not os.path.exists(os.path.join(ckpt_dir, 'log.txt'))
       )
@@ -145,12 +145,12 @@ def train_model(
     'recons_loss': recons_loss_rec / accum_samples,
     'time': time.time() - st
   }
-  wandb.log({
-        'ep': epoch,
-        'steps': train_steps,
-        'recons_loss': recons_loss_rec / accum_samples,
-        'time': time.time() - st
-      })
+  # wandb.log({
+  #       'ep': epoch,
+  #       'steps': train_steps,
+  #       'recons_loss': recons_loss_rec / accum_samples,
+  #       'time': time.time() - st
+  #     })
   log_epoch(
     os.path.join(ckpt_dir, 'log.txt'), log_data, is_init=not os.path.exists(os.path.join(ckpt_dir, 'log.txt'))
   )
@@ -198,12 +198,12 @@ def validate(model, dloader, rounds=1, model_type="performer"):
     
   return loss_rec
 
-import wandb
-wandb.login()
-run = wandb.init(
-    # Set the project where this run will be logged
-    project="c-and-e-classical",
-)
+# import wandb
+# wandb.login()
+# run = wandb.init(
+#     # Set the project where this run will be logged
+#     project="c-and-e-classical",
+# )
 
 if __name__ == "__main__":
   model_conf = train_conf['model']
@@ -319,10 +319,10 @@ if __name__ == "__main__":
         f.write("ep{:03d} | loss: {:.3f} valloss: {:.3f} (+/- {:.3f})\n".format(
           ep + 1, loss, np.mean(val_losses), np.std(val_losses)
         ))
-        wandb.log({
-          'ep': ep,
-          'loss': loss,
-          'steps': train_steps,
-          'valloss': np.mean(val_losses),
-          'valloss_std': np.std(val_losses)
-        })
+        # wandb.log({
+        #   'ep': ep,
+        #   'loss': loss,
+        #   'steps': train_steps,
+        #   'valloss': np.mean(val_losses),
+        #   'valloss_std': np.std(val_losses)
+        # })

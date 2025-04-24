@@ -23,12 +23,12 @@ training:
   gpuid:            0
   num_epochs:       1000
   ckpt_dir:         ckpt/stage02_embellish_gp_m015
-  ckpt_interval:    50     # epochs
+  ckpt_interval:    100     # epochs
   log_interval:     200       # steps
   trained_params:   null
   trained_optim:    null
   accum_steps:      2
-  inference_params: /home/yihsin/MidiStyleTransfer/Compose_and_Embellish_classical/ckpt/stage02_embellish_gp_m015/params/ep900_loss0.008_params.pt
+  inference_params: /home/yihsin/MidiStyleTransfer/Compose_and_Embellish_classical/ckpt/stage02_embellish_gp_m030/params/ep100_loss0.332_params.pt
 
   lr:               1.0e-4
   lr_scheduler:

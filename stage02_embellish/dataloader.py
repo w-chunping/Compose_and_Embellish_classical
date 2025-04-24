@@ -244,7 +244,7 @@ class REMISkylineToMidiTransformerDataset(Dataset):
     augmented_bar_events = transpose_events(bar_events, n_keys)
     return augmented_bar_events
 
-  def make_target_and_mask(self, inp_tokens, skyline_pos, midi_pos, st_bar, random_mask = False):
+  def make_target_and_mask(self, inp_tokens, skyline_pos, midi_pos, st_bar, random_mask = True):
     tgt = np.full_like(inp_tokens, fill_value=self.pad_token)
     track_mask = np.zeros_like(inp_tokens)
 
