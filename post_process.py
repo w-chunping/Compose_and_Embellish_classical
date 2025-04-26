@@ -39,7 +39,7 @@ def gnpy2midi(npy_path, midi_path="/content/test_from_npy.mid"):
     converted_back_midi.dump_midi(midi_path) # Save the MIDI file
 
 test_composer = "mozart"
-postfix = "k331"
+postfix = "k545m040_new_ep2000"
 generation_home = "/home/yihsin/MidiStyleTransfer/Compose_and_Embellish_classical/generation"
 for g in os.listdir(f"{generation_home}/stage02_{test_composer}{postfix}"):
     if(g.split(".")[1]=="npy"):

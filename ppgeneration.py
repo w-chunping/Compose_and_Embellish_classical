@@ -69,8 +69,8 @@ def pkl2orig(pkl_path, orig_path):
     converted_back_midi.dump_midi(orig_path) # Save the MIDI file
 
 
-train_split = read_pickle("stage02_embellish/pkl/pptrain.pkl")
-valid_split = read_pickle("stage02_embellish/pkl/ppvalid.pkl")
+train_split = read_pickle("stage02_embellish/pkl/train.pkl")
+valid_split = read_pickle("stage02_embellish/pkl/valid.pkl")
 compo_split = read_pickle("stage02_embellish/pkl/composer_split.pkl")
 
 # to_test = ["Bach_JohannSebastian", "Mozart_WolfgangAmadeus", "Beethoven_Ludwigvan"]
@@ -98,11 +98,11 @@ for composer in to_test:
     # temp_train = random.sample([s for s in matched_files if f"{s}.pkl" in train_split],3)
     # temp_valid = random.sample([s for s in matched_files if f"{s}.pkl" in valid_split],2)
     # generation_split[composer] = {"train":temp_train, "valid":temp_valid, "all":temp_train+temp_valid}
-    sample = [f for f in os.listdir(dataset_path) if f.startswith(" vp_h649sZ9A_Mozart_") and f.endswith(".pkl")]
+    sample = [f for f in os.listdir(dataset_path) if f.startswith(" qjk-YRuQZDE") and f.endswith(".pkl")]
     generation_split[composer] = {"all": sample}
 
 test_composer = "mozart"
-postfix = "k331"
+postfix = "k545"
 
 for piece in generation_split["Mozart_WolfgangAmadeus"]["all"]:
     generation_home = "/home/yihsin/MidiStyleTransfer/Compose_and_Embellish_classical/generation"

@@ -1,7 +1,7 @@
 import pickle
 
 # Path to your .pkl file
-file_path = '/home/yihsin/MidiStyleTransfer/Compose_and_Embellish_classical/stage02_embellish/pkl/train.pkl'
+file_path = '/home/yihsin/MidiStyleTransfer/Compose_and_Embellish_classical/stage02_embellish/pkl/valid.pkl'
 
 try:
     with open(file_path, 'rb') as f:

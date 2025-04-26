@@ -251,7 +251,7 @@ class REMISkylineToMidiTransformerDataset(Dataset):
     # randomly choose 10 percent 0f tokens to be masked
     if random_mask:
       flag_list = [False] * len(skyline_pos)
-      num_to_select = int(0.15 * (len(skyline_pos) - st_bar))
+      num_to_select = int(0.4 * (len(skyline_pos) - st_bar))
       selected_indices = random.sample(range(st_bar, len(skyline_pos)), num_to_select)
       for index in selected_indices:
           flag_list[index] = True
